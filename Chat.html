@@ -51,6 +51,8 @@
         </div>
     </main>
     <script>
+        let messagesContainer = document.getElementById("messages-container");
+        
         function createMessage(text) {
             let newMessage = document.createElement("div");
             newMessage.className = "message"
@@ -66,7 +68,6 @@
             let jsonString = this.responseText;
             let jsonObject = JSON.parse(jsonString);
             let andrewMessages = jsonObject["andrew"];
-            let messagesContainer = document.getElementById("messages-container");
             console.log(jsonObject);
             console.log(andrewMessages);
             if (Object.entries(andrewMessages).length === 0) {
