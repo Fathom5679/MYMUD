@@ -9,7 +9,14 @@
 <script>
     request = new XMLHttpRequest()
     request.onload = function() {
-        document.getElementById("response-text").innerHTML = this.responseText;
+        let jsonString = document.getElementById("response-text").innerHTML = this.responseText;
+        let jsonObject = JSON.parse(jsonString);
+        let andrewMessages = jsonObject["andrew"];
+        for (let key in andrewMessages) {
+            let newMessage = document.createElement("p");
+            newMessage.innerHTML = andrewMessages[key]["text"];
+            document.body.appendChild(newMessage);
+        }
     }
     request.open("GET", "https://mymud-fe188-default-rtdb.firebaseio.com/messages.json");
     request.send();
