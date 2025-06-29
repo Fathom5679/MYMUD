@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <title>Messages</title>
 </head>
-    <p id="response-text"></p>
 <body>
 <script>
     request = new XMLHttpRequest()
     request.onload = function() {
-        let jsonString = document.getElementById("response-text").innerHTML = this.responseText;
+        let jsonString = this.responseText;
         let jsonObject = JSON.parse(jsonString);
         let andrewMessages = jsonObject["andrew"];
         for (let key in andrewMessages) {
