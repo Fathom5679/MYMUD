@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Messages</title>
+</head>
+<body>
+<script>
+    request = new XMLHttpRequest()
+    request.onload = function() {
+        console.log(this.responseText);
+    }
+    request.open("GET", "https://mymud-fe188-default-rtdb.firebaseio.com/rooms.json");
+    request.send();
+</script>
+</body>
+</html>
