@@ -2,23 +2,83 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Messages</title>
+    <style>
+        html, body {
+            margin: 0;
+            background-color: #111;
+        }
+        .content {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            justify-content: center;
+        }
+        .messages-container {
+            display: flex;
+            flex-flow: column nowrap;
+            align-items: center;
+            justify-content: center;
+            width: 90%;
+            border: 2px solid #333;
+            border-radius: 10px;
+            margin: 30px;
+        }
+        .message {
+            text-align: center;
+            width: 70%;
+            border: 1px solid #222;
+            padding: 5px;
+            margin: 15px;
+        }
+        .message-text {
+            color: white;
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
-<script>
-    request = new XMLHttpRequest()
-    request.onload = function() {
-        let jsonString = this.responseText;
-        let jsonObject = JSON.parse(jsonString);
-        let andrewMessages = jsonObject["andrew"];
-        for (let key in andrewMessages) {
-            let newMessage = document.createElement("p");
-            newMessage.innerHTML = andrewMessages[key]["text"];
-            document.body.appendChild(newMessage);
+    <header>
+
+    </header>
+    <main>
+        <div class="content">
+            <div id="messages-container" class="messages-container">
+            </div>
+        </div>
+    </main>
+    <script>
+        function createMessage(text) {
+            let newMessage = document.createElement("div");
+            newMessage.className = "message"
+            let messageText = document.createElement("p");
+            messageText.className = "message-text";
+            messageText.innerHTML = text;
+            newMessage.appendChild(messageText);
+            messagesContainer.appendChild(newMessage);
         }
-    }
-    request.open("GET", "https://mymud-fe188-default-rtdb.firebaseio.com/messages.json");
-    request.send();
-</script>
+        
+        request = new XMLHttpRequest()
+        request.onload = function() {
+            let jsonString = this.responseText;
+            let jsonObject = JSON.parse(jsonString);
+            let andrewMessages = jsonObject["andrew"];
+            let messagesContainer = document.getElementById("messages-container");
+            console.log(jsonObject);
+            console.log(andrewMessages);
+            if (Object.entries(andrewMessages).length === 0) {
+                createMessage("No messages here.");
+            } else {
+                for (let key in andrewMessages) {
+                    createMessage(andrewMessages[key]["message"]);
+                }
+            }
+        }
+        request.open("GET", "https://mymud-fe188-default-rtdb.firebaseio.com/messages.json");
+        request.send();
+    </script>
 </body>
 </html>
