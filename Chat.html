@@ -67,8 +67,7 @@
         request.onload = function() {
             let jsonString = this.responseText;
             let jsonObject = JSON.parse(jsonString);
-            console.log(jsonObject);
-            if (Object.entries(jsonObject).length === 0) {
+            if (jsonObject == null || Object.entries(jsonObject).length === 0) {
                 createMessage("No messages here.");
             } else {
                 for (let key in jsonObject) {
