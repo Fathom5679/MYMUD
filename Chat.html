@@ -67,18 +67,19 @@
         request.onload = function() {
             let jsonString = this.responseText;
             let jsonObject = JSON.parse(jsonString);
-            let andrewMessages = jsonObject["andrew"];
             console.log(jsonObject);
-            console.log(andrewMessages);
-            if (Object.entries(andrewMessages).length === 0) {
+            if (Object.entries(jsonObject).length === 0) {
                 createMessage("No messages here.");
             } else {
-                for (let key in andrewMessages) {
+                for (let key in jsonObject) {
                     createMessage(andrewMessages[key]["message"]);
                 }
             }
         }
-        request.open("GET", "https://mymud-fe188-default-rtdb.firebaseio.com/messages.json");
+        let queryString = window.location.search;
+        let urlParams = new URLSearchParams(queryString);
+        let room = urlParams.get("room");
+        request.open("GET", "https://mymud-fe188-default-rtdb.firebaseio.com/rooms/" + room + "/messages.json");
         request.send();
     </script>
 </body>
