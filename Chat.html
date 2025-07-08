@@ -72,7 +72,7 @@
                 createMessage("No messages here.");
             } else {
                 for (let key in jsonObject) {
-                    createMessage(andrewMessages[key]["message"]);
+                    createMessage(jsonObject[key]["message"]);
                 }
             }
         }
